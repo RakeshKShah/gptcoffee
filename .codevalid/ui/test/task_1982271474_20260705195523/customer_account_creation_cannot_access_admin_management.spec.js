@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../../../helpers/execution-recorder.js";
-import { setupAuthMocks, setupPostAuthMocks } from "../../../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { setupAuthMocks, setupPostAuthMocks } from "../../helpers/mock-api.js";
 
 test("New customer account cannot access admin management functionality", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder(

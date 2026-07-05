@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../../../helpers/execution-recorder.js";
-import { setupAuthMocks, setupPostAuthMocks } from "../../../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { setupAuthMocks, setupPostAuthMocks } from "../../helpers/mock-api.js";
 
 test("Customer user is restricted from admin management functionality", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder(
@@ -26,8 +26,8 @@ test("Customer user is restricted from admin management functionality", async ({
   });
 
   await recorder.step("Navigate to the login flow", async () => {
-    await page.getByRole("button", { name: "Login" }).click();
-    await expect(page.getByRole("button", { name: /^Login$/ })).toBeVisible();
+    await page.getByRole("button", { name: "Login" }).first().click();
+    await expect(page.getByRole("button", { name: /^Login$/ }).last()).toBeVisible();
   });
 
   await recorder.step("Enter valid customer account credentials", async () => {
@@ -36,7 +36,7 @@ test("Customer user is restricted from admin management functionality", async ({
   });
 
   await recorder.step("Submit the login form", async () => {
-    await page.getByRole("button", { name: /^Login$/ }).click();
+    await page.getByRole("button", { name: /^Login$/ }).last().click();
   });
 
   await recorder.step("Verify admin management functionality is denied", async () => {

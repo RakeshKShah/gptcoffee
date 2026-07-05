@@ -18,7 +18,7 @@ test("Admin Login Provides Admin Access", async ({ page }, testInfo) => {
 
   await recorder.step("Open the AuthScreen");
   await page.goto("/");
-  await expect(page.getByRole("button", { name: /^login$/i })).toBeVisible();
+  await expect(page.getByRole("button", { name: /^login$/i }).first()).toBeVisible();
 
   await recorder.step("Enter valid admin account credentials");
   await page.getByPlaceholder("you@example.com").fill("admin@gptcoffee.test");

@@ -3,7 +3,7 @@ import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
 import { setupAuthMocks, setupPostAuthMocks } from "../../helpers/mock-api.js";
 
 test("Admin Can Create Account and Access Admin Functionality", async ({ page }, testInfo) => {
-  const recorder = new ExecutionRecorder("admin_account_creation_and_access", testInfo);
+  const recorder = new ExecutionRecorder("admin_account_creation_and_access", testInfo.title);
 
   await recorder.step("Open the application and register scenario-specific auth and admin data mocks", async () => {
     await page.route("**/api/**", async (route) => {

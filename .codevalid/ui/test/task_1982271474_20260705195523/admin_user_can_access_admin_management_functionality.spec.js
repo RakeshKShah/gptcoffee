@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../../../helpers/execution-recorder.js";
-import { setupAuthMocks, setupPostAuthMocks } from "../../../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { setupAuthMocks, setupPostAuthMocks } from "../../helpers/mock-api.js";
 
 test("Admin user accesses admin management functionality after authentication", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder(
@@ -27,8 +27,8 @@ test("Admin user accesses admin management functionality after authentication", 
   });
 
   await recorder.step("Navigate to the login flow", async () => {
-    await page.getByRole("button", { name: "Login" }).click();
-    await expect(page.getByRole("button", { name: "Login" })).toBeVisible();
+    await page.getByRole("button", { name: "Login" }).first().click();
+    await expect(page.getByRole("button", { name: "Login" }).last()).toBeVisible();
   });
 
   await recorder.step("Enter valid admin account credentials", async () => {
@@ -37,7 +37,7 @@ test("Admin user accesses admin management functionality after authentication", 
   });
 
   await recorder.step("Submit the login form", async () => {
-    await page.getByRole("button", { name: /^Login$/ }).click();
+    await page.getByRole("button", { name: /^Login$/ }).last().click();
   });
 
   await recorder.step("Verify admin management functionality is accessible", async () => {

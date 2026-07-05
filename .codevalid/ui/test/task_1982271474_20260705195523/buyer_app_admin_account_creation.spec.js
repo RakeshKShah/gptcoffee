@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../helpers/execution-recorder.js";
-import { setupAuthMocks, setupPostAuthMocks } from "../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { setupAuthMocks, setupPostAuthMocks } from "../../helpers/mock-api.js";
 
 test("Admin account creation flow", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder("buyer_app_admin_account_creation", "Admin account creation flow");

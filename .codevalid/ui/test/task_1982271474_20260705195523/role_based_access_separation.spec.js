@@ -37,7 +37,7 @@ test("Users Receive Access Based on Assigned Role", async ({ page }, testInfo) =
   await expect(page.getByText("Admin Dashboard")).toHaveCount(0);
 
   await recorder.step("Log out if logout functionality is available");
-  await page.getByRole("button", { name: /log out/i }).click();
+  await page.getByRole("button", { name: "Logout" }).click();
   await expect(page.getByText("Order from home. Pick up when your cup is ready.")).toBeVisible();
 
   await recorder.step("Log in using an admin account");

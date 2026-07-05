@@ -3,7 +3,7 @@ import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
 import { setupAuthMocks, setupPostAuthMocks } from "../../helpers/mock-api.js";
 
 test("Admin Role Receives Admin Management Access", async ({ page }, testInfo) => {
-  const recorder = new ExecutionRecorder("admin_role_access_validation", testInfo);
+  const recorder = new ExecutionRecorder("admin_role_access_validation", testInfo.title);
 
   await recorder.step("Open the application with valid admin login and admin dashboard mocks", async () => {
     await setupAuthMocks(page, {
@@ -23,7 +23,7 @@ test("Admin Role Receives Admin Management Access", async ({ page }, testInfo) =
   await recorder.step("Log in using a valid admin account", async () => {
     await page.getByLabel("Email").fill("admin@gptcoffee.test");
     await page.getByLabel("Password").fill("admin123");
-    await page.getByRole("button", { name: "Login" }).click();
+    await page.getByRole("button", { name: "Login" }).last().click();
   });
 
   await recorder.step("Verify admin management functionality is accessible", async () => {

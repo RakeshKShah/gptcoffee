@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../helpers/execution-recorder.js";
-import { setupAuthMocks, setupPostAuthMocks } from "../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { setupAuthMocks, setupPostAuthMocks } from "../../helpers/mock-api.js";
 
 test("Customer role receives customer access only", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder("buyer_app_customer_role_access", "Customer role receives customer access only");
@@ -27,10 +27,10 @@ test("Customer role receives customer access only", async ({ page }, testInfo) =
     await page.goto("/");
 
     await recorder.step("Authenticate using valid customer credentials");
-    await expect(page.getByRole("button", { name: "Login" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Login" }).last()).toBeVisible();
     await page.getByPlaceholder("you@example.com").fill("buyer@gptcoffee.test");
     await page.locator('input[type="password"]').fill("buyer123");
-    await page.getByRole("button", { name: "Login" }).click();
+    await page.getByRole("button", { name: "Login" }).last().click();
 
     await recorder.step("Verify customer ordering functionality is available after login");
     await expect(page.getByRole("heading", { name: "Signature drinks" })).toBeVisible();

@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../helpers/execution-recorder.js";
-import { setupAuthMocks, setupPostAuthMocks } from "../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { setupAuthMocks, setupPostAuthMocks } from "../../helpers/mock-api.js";
 
 test("Admin role receives admin access only", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder("buyer_app_admin_role_access", "Admin role receives admin access only");
@@ -28,15 +28,15 @@ test("Admin role receives admin access only", async ({ page }, testInfo) => {
     await page.goto("/");
 
     await recorder.step("Authenticate using valid admin credentials");
-    await expect(page.getByRole("button", { name: "Login" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Login" }).last()).toBeVisible();
     await page.getByPlaceholder("you@example.com").fill("admin@gptcoffee.test");
     await page.locator('input[type="password"]').fill("admin123");
-    await page.getByRole("button", { name: "Login" }).click();
+    await page.getByRole("button", { name: "Login" }).last().click();
 
     await recorder.step("Verify admin management functionality is available after login");
     await expect(page.getByText("Admin Dashboard")).toBeVisible();
     await expect(page.getByRole("heading", { name: "Manage orders from anywhere." })).toBeVisible();
-    await expect(page.getByText("Orders")).toBeVisible();
+    await expect(page.getByText("Orders", { exact: true })).toBeVisible();
     await expect(page.getByText("Daily sales")).toBeVisible();
     await expect(page.getByText("Monthly sales")).toBeVisible();
     await expect(page.getByText("All-time sales")).toBeVisible();

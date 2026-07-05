@@ -3,7 +3,7 @@ import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
 import { setupAuthMocks, setupPostAuthMocks } from "../../helpers/mock-api.js";
 
 test("Customer Role Is Restricted From Admin Functionality", async ({ page }, testInfo) => {
-  const recorder = new ExecutionRecorder("customer_role_cannot_access_admin_functionality", testInfo);
+  const recorder = new ExecutionRecorder("customer_role_cannot_access_admin_functionality", testInfo.title);
 
   await recorder.step("Open the application with valid customer login and buyer post-auth mocks", async () => {
     await setupAuthMocks(page, {
@@ -22,7 +22,7 @@ test("Customer Role Is Restricted From Admin Functionality", async ({ page }, te
   await recorder.step("Log in using a valid customer account", async () => {
     await page.getByLabel("Email").fill("buyer@gptcoffee.test");
     await page.getByLabel("Password").fill("buyer123");
-    await page.getByRole("button", { name: "Login" }).click();
+    await page.getByRole("button", { name: "Login" }).last().click();
   });
 
   await recorder.step("Verify customer areas are accessible", async () => {

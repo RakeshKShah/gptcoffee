@@ -3,7 +3,7 @@ import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
 import { setupAuthMocks, setupPostAuthMocks } from "../../helpers/mock-api.js";
 
 test("Existing Authenticated Users Can Log In", async ({ page }, testInfo) => {
-  const recorder = new ExecutionRecorder("authenticated_login_for_existing_users", testInfo);
+  const recorder = new ExecutionRecorder("authenticated_login_for_existing_users", testInfo.title);
 
   await recorder.step("Open the application and register mocks for both valid customer and admin login scenarios", async () => {
     await setupAuthMocks(page, {
@@ -33,20 +33,20 @@ test("Existing Authenticated Users Can Log In", async ({ page }, testInfo) => {
   await recorder.step("Log in using valid customer account credentials and verify customer access", async () => {
     await page.getByLabel("Email").fill("buyer@gptcoffee.test");
     await page.getByLabel("Password").fill("buyer123");
-    await page.getByRole("button", { name: "Login" }).click();
+    await page.getByRole("button", { name: "Login" }).last().click();
     await expect(page.getByText("Signature drinks")).toBeVisible();
     await expect(page.getByRole("heading", { name: "Your pickup status" })).toBeVisible();
   });
 
   await recorder.step("Log out from the customer session if logout is available", async () => {
-    await page.getByRole("button", { name: /log out/i }).click();
-    await expect(page.getByRole("button", { name: "Login" })).toBeVisible();
+    await page.getByRole("button", { name: "Logout" }).click();
+    await expect(page.getByRole("button", { name: "Login" }).last()).toBeVisible();
   });
 
   await recorder.step("Log in using valid admin account credentials and verify admin access", async () => {
     await page.getByLabel("Email").fill("admin@gptcoffee.test");
     await page.getByLabel("Password").fill("admin123");
-    await page.getByRole("button", { name: "Login" }).click();
+    await page.getByRole("button", { name: "Login" }).last().click();
     await expect(page.getByText("Admin Dashboard")).toBeVisible();
     await expect(page.getByText("Coffee flavors")).toBeVisible();
     await expect(page.getByText("Live order history")).toBeVisible();

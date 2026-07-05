@@ -3,16 +3,9 @@ import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
 import { setupAuthMocks, setupPostAuthMocks } from "../../helpers/mock-api.js";
 
 test("Customer Can Create Account and Access Customer Functionality", async ({ page }, testInfo) => {
-  const recorder = new ExecutionRecorder("customer_account_creation_and_access", testInfo);
+  const recorder = new ExecutionRecorder("customer_account_creation_and_access", testInfo.title);
 
   await recorder.step("Open the application and register scenario-specific auth and buyer data mocks", async () => {
-    await page.route("**/api/**", async (route) => {
-      await route.fulfill({
-        status: 200,
-        contentType: "application/json",
-        body: JSON.stringify({ products: [], customizations: { sizes: [], milks: [], extras: [] } }),
-      });
-    });
     await setupAuthMocks(page, {
       loginScenario: "buyer_success",
       signupScenario: "buyer_signup_success",
